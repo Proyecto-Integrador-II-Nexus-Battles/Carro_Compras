@@ -29,8 +29,8 @@ export class getDataController {
     static async LIST_CARD(req, res) {
         try {
             const { IdUsuario } = req.body;
-            const list = await carritoModel.ALL(IdUsuario);
-            res.status(200).json({ list })
+            const cartas = await carritoModel.ALL(IdUsuario);
+            res.status(200).json({ cartas })
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Error al mostrar los productos' });

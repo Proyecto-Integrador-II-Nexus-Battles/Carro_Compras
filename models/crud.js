@@ -2,7 +2,7 @@ import pool from '../models/dbconection.js';
 
 export class carritoModel{
 
-    static async INSERT_CARD(ID_USUARIO, CARTA_ID, CANTIDAD, FECHA_AGREGADO){
+    static async INSERT_CARD(ID_USUARIO, CARTA_ID, CANTIDAD){
         try {
             const exist = await pool.query(` SELECT COUNT(*) AS count FROM ITEM_CARRO WHERE ID_USUARIO = ? AND CARTA_ID = ? `, [ID_USUARIO, CARTA_ID]);
 
@@ -23,7 +23,7 @@ export class carritoModel{
                 (?, ?, ?, NOW());
               `;
           
-              const result = await pool.query(insertQuery, [Number(ID_USUARIO), Number(CARTA_ID), Number(CANTIDAD), FECHA_AGREGADO]);
+              const result = await pool.query(insertQuery, [Number(ID_USUARIO), Number(CARTA_ID), Number(CANTIDAD)]);
               return result;
 
             }
