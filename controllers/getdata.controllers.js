@@ -29,7 +29,7 @@ export class getDataController {
     static async LIST_CARD(req, res) {
         try {
             const { IdUsuario } = req.body;
-            const cartas = await carritoModel.ALL(IdUsuario);
+            const cartas = await carritoModel.ALL_AND_COUNT(IdUsuario);
             res.status(200).json({ cartas })
         } catch (error) {
             console.error(error);
