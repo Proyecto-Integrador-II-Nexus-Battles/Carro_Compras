@@ -23,7 +23,7 @@ export class carritoModel{
                 (?, ?, ?, NOW());
               `;
           
-              const result = await pool.query(insertQuery, [Number(ID_USUARIO), Number(CARTA_ID), Number(CANTIDAD)]);
+              const result = await pool.query(insertQuery, [Number(ID_USUARIO), CARTA_ID, Number(CANTIDAD)]);
               return result;
 
             }
@@ -75,7 +75,7 @@ export class carritoModel{
 
             }
           } catch (error) {
-            console.error('Error al eliminar la carta:', error);
+            console.error('Error al buscar productos:', error);
             throw error;
           }
     }

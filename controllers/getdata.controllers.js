@@ -1,6 +1,9 @@
 import axios from "axios";
 import { carritoModel } from "../models/crud.js";
 import { response } from "express";
+import { HOST } from "../config.js";
+
+
 
 export class getDataController {
 
@@ -42,13 +45,13 @@ export class getDataController {
             const { IdUsuario } = req.body;
             const list = await carritoModel.ALL(IdUsuario);
             let totalNeto = 0
-            axios.post('http://localhost:3000/asdsad', { cards: list })
+            axios.post(`${process.env.HOST_VITRINA}:${process.env.PORT_VITRINA}/vitrina/prices`, { cartas: list })
                 .then( async response => {
                     console.log('Respuesta de la API de precios:', response.data);
                     totalNeto = response.data.reduce((acumulador, carta) => acumulador + carta.precio, 0);
 
                     console.log(totalNeto);
-                    res.json({'totalNeto': totalNeto, 'divisa': response.data[0].divisa, 'IdUsuario': IdUsuario, 'list' : list});
+                    res.json({'totalNeto': totalNeto, 'divisa': response.data[0].divisa, 'IdUsuario': IdUsuario, 'list_price_unit' : response.data});
                 })
                 .catch(error => {
                     console.error('Error al realizar la solicitud:', error);
