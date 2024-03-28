@@ -23,7 +23,7 @@ export class carritoModel{
                 (?, ?, ?, NOW());
               `;
           
-              const result = await pool.query(insertQuery, [Number(ID_USUARIO), Number(CARTA_ID), Number(CANTIDAD)]);
+              const result = await pool.query(insertQuery, [Number(ID_USUARIO), CARTA_ID, Number(CANTIDAD)]);
               return result;
 
             }
@@ -75,9 +75,27 @@ export class carritoModel{
 
             }
           } catch (error) {
-            console.error('Error al eliminar la carta:', error);
+            console.error('Error al buscar productos:', error);
             throw error;
           }
+    }
+
+    static async ALL_AND_COUNT(ID_USUARIO){
+        try {
+            const exist = await pool.query(`SELECT COUNT(*) AS count FROM ITEM_CARRO WHERE ID_USUARIO = ?`, [ID_USUARIO]);
+            if(exist[0].count > 0){
+                const result = await pool.query(
+                    'SELECT CARTA_ID, CANTIDAD, ID_USUARIO FROM ITEM_CARRO WHERE ID_USUARIO = ?',
+                    [ID_USUARIO]
+                );
+                return result;
+            } else {
+                return [];
+            }
+        } catch (error) {
+            console.error('Error al obtener los datos:', error);
+            throw error;
+        }
     }
 
 }
