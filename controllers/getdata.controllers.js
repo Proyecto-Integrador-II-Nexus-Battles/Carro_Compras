@@ -40,6 +40,30 @@ export class getDataController {
         }
     }
 
+    static async PRICE_CARD(req, res) {
+        try {
+            const { IdUsuario } = req.body;
+            const list = await carritoModel.ALL(IdUsuario);
+            let totalNeto = 0
+            axios.post(`${process.env.HOST_VITRINA}:${process.env.PORT_VITRINA}/vitrina/prices`, { cartas: list })
+                .then(async response => {
+                    console.log('Respuesta de la API de precios:', response.data);
+                    totalNeto = response.data.reduce((acumulador, carta) => acumulador + carta.precio, 0);
+
+                    console.log(totalNeto);
+                    res.json({ 'totalNeto': totalNeto, 'divisa': response.data[0].divisa } );
+                })
+                .catch(error => {
+                    console.error('Error al realizar la solicitud:', error);
+                });
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Error con el servidor' });
+        }
+
+    }
+
     static async INFO_CARDS(req, res) {
         try {
             const { IdUsuario } = req.body;
