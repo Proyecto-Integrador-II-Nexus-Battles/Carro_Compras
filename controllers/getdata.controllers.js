@@ -87,7 +87,7 @@ export class getDataController {
                     const totalNeto = cantxprice.reduce((total, valorActual) => total + valorActual, 0);
                     const totalBruto = totalNeto - (totalNeto*0.19)
 
-                    res.json({ 'Info': response.data, 'totales' : cantxprice, 'totalNeto': totalNeto, 'totalBruto' : totalBruto});
+                    res.json({ 'Info': response.data, 'totales' : cantxprice, 'totalNeto': totalNeto, 'totalBruto' : totalBruto, 'list_price_unit' : cantidad});
                 })
                 .catch(error => {
                     console.error('Error al realizar la solicitud:', error);
