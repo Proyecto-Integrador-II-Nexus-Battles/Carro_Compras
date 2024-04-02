@@ -56,7 +56,7 @@ export class getDataController {
             const { IdUsuario } = req.body;
             const list = await carritoModel.ALL(IdUsuario);
             let totalNeto = 0
-            axios.post(`${process.env.HOST_VITRINA}:${process.env.PORT_VITRINA}/vitrina/prices`, { cartas: list })
+            axios.post(`https://localhost:2000/vitrina/prices`, { cartas: list })
                 .then(async response => {
                     console.log('Respuesta de la API de precios:', response.data);
                     totalNeto = response.data.reduce((acumulador, carta) => acumulador + carta.precio, 0);
@@ -82,7 +82,7 @@ export class getDataController {
             let cantidad = await carritoModel.ALL_AND_COUNT(IdUsuario);
             let cantxprice = []
 
-            axios.post(`${process.env.HOST_INVENTARIO}:${process.env.PORT_INVENTARIO}/inventario/getCardsbyID`, list )
+            axios.post(`https://localhost:3000/inventario/getCardsbyID`, list )
                 .then(async response => {
 
                     const info = response.data
