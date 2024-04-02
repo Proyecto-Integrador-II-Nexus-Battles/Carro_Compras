@@ -1,0 +1,15 @@
+services:
+  carro:
+    image: davopaco/carro_compras:latest
+    ports:
+      - "4000:3000"
+    environment:
+      - APP_PORT=3000
+      - HOST_DB=buey.thenexusbattlesii.online
+      - PORT_DB=3307
+      - USER_DB=root
+      - PASSWORD_DB=my-password
+      - DATABASE=CARRO_COMPRAS
+      - HOST=https://gateway.thenexusbattlesii.online
+      - PORT=5000
+
