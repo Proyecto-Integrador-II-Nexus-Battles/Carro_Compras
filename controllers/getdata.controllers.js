@@ -9,12 +9,23 @@ export class getDataController {
 
     static async ADD_CARD(req, res) {
         try {
-            const { IdUsuario, IdCard, Cantidad } = req.body;
-            await carritoModel.INSERT_CARD(IdUsuario, IdCard, Cantidad);
+            const { IdUsuario, IdCard } = req.body;
+            await carritoModel.INSERT_CARD(IdUsuario, IdCard);
             res.status(200).json({ message: 'Carta agregada correctamente' })
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Error al insertar la carta' });
+        }
+    }
+
+    static async CHANGECANT(req, res) {
+        try {
+            const { IdUsuario, IdCard, Cantidad } = req.body;
+            await carritoModel.CHANGE_CANT(IdUsuario, IdCard, Cantidad);
+            res.status(200).json({ message: 'Cantidad cambiada correctamente' })
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Error al cambiar la cantidad de la carta' });
         }
     }
 
