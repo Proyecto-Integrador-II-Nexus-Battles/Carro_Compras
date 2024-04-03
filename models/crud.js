@@ -2,6 +2,21 @@ import pool from '../models/dbconection.js';
 
 export class carritoModel{
 
+    static async DELETE_PRODUCT(ID_USUARIO){
+        try{
+
+            const result = await pool.query(
+                `DELETE FROM ITEM_CARRO WHERE ID_USUARIO = ?`,
+                [ID_USUARIO]
+            );
+            return result;
+
+        }catch (error){
+            console.error('Error al insertar la carta:', error);
+            throw error;
+        }
+    }
+
     static async INSERT_CARD(ID_USUARIO, CARTA_ID) {
         try {
             // Verificar si la carta ya existe en el carrito del usuario
